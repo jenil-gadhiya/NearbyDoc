@@ -26,7 +26,7 @@
     session_start();
 
     if(isset($_SESSION["user"])){
-        if(($_SESSION["user"])=="" or $_SESSION['usertype']!='d'){
+        if(($_SESSION["user"])==""){
             header("location: ../login.php");
         }
         else {
@@ -43,7 +43,7 @@
     $userfetch=$userrow->fetch_assoc();
     $userid= $userfetch["docid"];
     $username=$userfetch["docname"];
-    
+    $sqlmain = "";
     ?>
     <div class="container">
         <div class="menu">
@@ -119,7 +119,7 @@
                         $today = date('Y-m-d');
                         echo $today;
 
-                        $list110 = $database->query("select  * from  schedule;");
+                        $list110 = $database->query("select  * from  schedule");
 
                         ?>
                         </p>
@@ -187,7 +187,6 @@
                             $sqlpt1=" schedule.scheduledate='$sheduledate' ";
                         }
 
-
                         $sqlpt2="";
                         if(!empty($_POST["docid"])){
                             $docid=$_POST["docid"];
@@ -200,7 +199,6 @@
                         $sqlkeywords=array(" where "," and ");
                         $key2=0;
                         foreach($sqllist as $key){
-
                             if(!empty($key)){
                                 $sqlmain.=$sqlkeywords[$key2].$key;
                                 $key2++;
@@ -212,10 +210,8 @@
                         
                         //
                     }else{
-                        $sqlmain= "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid  order by schedule.scheduledate desc";
-
+                        $sqlmain= "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid where schedule.docid = '$useremail' order by schedule.scheduledate desc";
                     }
-
 
 
                 ?>
@@ -261,7 +257,7 @@
                                 
                                 $result= $database->query($sqlmain);
 
-                                if($result->num_rows==0){
+                                if(!($result->num_rows)){
                                     echo '<tr>
                                     <td colspan="4">
                                     <br><br><br><br>
@@ -499,10 +495,7 @@
             $scheduledate=$row["scheduledate"];
             $scheduletime=$row["scheduletime"];
             
-           
             $nop=$row['nop'];
-
-
             $sqlmain12= "select * from appointment inner join patient on patient.pid=appointment.pid inner join schedule on schedule.scheduleid=appointment.scheduleid where schedule.scheduleid=$id;";
             $result12= $database->query($sqlmain12);
             echo '
