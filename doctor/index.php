@@ -69,7 +69,7 @@
                                 </td>
                                 <td style="padding:0px;margin:0px;">
                                     <p class="profile-title"><?php echo substr($username,0,13)  ?>..</p>
-                                    <p class="profile-subtitle"><?php echo substr($useremail,0,22)  ?></p>
+                                    
                                 </td>
                             </tr>
                             <tr>
@@ -93,16 +93,10 @@
 
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-session">
-                        <a href="add_schedule.php" class="non-style-link-menu"><div><p class="menu-text">Add Sessions</p></div></a>
+                        <a href="add_schedule.php" class="non-style-link-menu"><div><p class="menu-text">Edit Sessions</p></div></a>
                     </td>
                 </tr>
 
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-session">
-                        <a href="schedule.php" class="non-style-link-menu"><div><p class="menu-text">My Sessions</p></div></a>
-                    </td>
-                </tr>
-                
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-patient">
                         <a href="patient.php" class="non-style-link-menu"><div><p class="menu-text">My Patients</p></a></div>
@@ -353,12 +347,6 @@
                                         </div>
                                         </center>
 
-
-
-
-
-
-
                                 </td>
                             </tr>
                         </table>
@@ -367,7 +355,6 @@
             </table>
         </div>
     </div>
-
 
 </body>
 </html>

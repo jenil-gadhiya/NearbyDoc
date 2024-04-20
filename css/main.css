@@ -6,6 +6,8 @@
   --btnnicetext:#1b62b3;
 }
 
+
+
 body{
     margin: 0;
     padding: 0;
@@ -82,7 +84,7 @@ body{
 }
 
 .input-text:focus{
-    border: 1px solid rgb(10,118,216);
+    border: 1px solid #1977cc;
     transition: 0.2s;
 }
 
@@ -119,12 +121,12 @@ body{
     background-color: var(--primarycolor) ;
     border: 1px solid var(--primarycolor) ;
     color: #fff ;
-    box-shadow: 0 3px 5px 0 rgba(57,108,240,0.3);
+    box-shadow: 0 3px 5px 0 #1977cc;
 }
 
 .btn-primary-soft{
     background-color: #D8EBFA ;
-    /*border: 1px solid rgba(57,108,240,0.1) ;*/    color: #1969AA;
+    /*border: 1px solid rgba(57,108,240,0.1) ;*/    color: #1977cc;
     font-weight: 500;
     font-size: 16px;
     border: none;
