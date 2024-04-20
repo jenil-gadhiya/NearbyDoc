@@ -10,12 +10,57 @@
         
     <title>Patients</title>
     <style>
+        /* Styles for popup */
+        .popup {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .popup-title {
+            padding: 0;
+            margin: 0;
+            text-align: left;
+            font-size: 25px;
+            font-weight: 500;
+        }
+
+        /* Styles for form container */
+        .form-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Styles for form elements */
+        .form-label {
+            font-weight: bold;
+        }
+
+        #fileToUpload {
+            margin-bottom: 10px;
+        }
+
         .popup{
             animation: transitionIn-Y-bottom 0.5s;
         }
         .sub-table{
             animation: transitionIn-Y-bottom 0.5s;
         }
+        .upload-input {
+        margin-bottom: 10px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        font-size: 16px;
+        transition: border-color 0.3s;
+    }
+
+    .upload-input:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
 </style>
 </head>
 <body>
@@ -289,9 +334,10 @@
                                         '.substr($dob,0,10).'
                                         </td>
                                         <td >
-                                        <div style="display:flex;justify-content: center;">
+                                        <div style="display:flex;justify-content:center;">
                                         
-                                        <a href="?action=view&id='.$pid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">View</font></button></a>
+                                        <a href="?action=view&id='.$pid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">View</font></button></a>
+                                        <a href="?prescription=view&id='.$pid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="margin-left: 30px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Prescription</font></button></a>
                                        
                                         </div>
                                         </td>
@@ -308,18 +354,16 @@
                         </div>
                         </center>
                    </td> 
-                </tr>
-                       
-                        
-                        
+                </tr>         
             </table>
         </div>
     </div>
     <?php 
-    if($_GET){
+    if(isset($_GET['action'])){
         
         $id=$_GET["id"];
         $action=$_GET["action"];
+        
             $sqlmain= "select * from patient where pid='$id'";
             $result= $database->query($sqlmain);
             $row=$result->fetch_assoc();
@@ -441,9 +485,155 @@
             </div>
             ';
         
-    };
+    }
+    else if(isset($_GET['prescription'])){
+                $id = $_GET["id"];
+                $action = $_GET["prescription"];
+                
+                $sqlmain = "SELECT * FROM patient WHERE pid='$id'";
+                $result = $database->query($sqlmain);
+                $row = $result->fetch_assoc();
+                $name = $row["pname"];
+                $email = $row["pemail"];
+                $nic = $row["pnic"];
+                $dob = $row["pdob"];
+                $tele = $row["ptel"];
+                $address = $row["paddress"];
 
-?>
+                // Check if form is submitted
+                // if(isset($_POST['submit'])) {
+                //     // Check if file is uploaded without errors
+                //     if(isset($_FILES['fileToUpload']) && $_FILES['fileToUpload']['error'] === UPLOAD_ERR_OK) {
+                //         $fileTmpPath = $_FILES['fileToUpload']['tmp_name'];
+                //         $fileName = $_FILES['fileToUpload']['name'];
+                //         $fileSize = $_FILES['fileToUpload']['size'];
+                //         $fileType = $_FILES['fileToUpload']['type'];
+                //         $fileNameCmps = explode(".", $fileName);
+                //         $fileExtension = strtolower(end($fileNameCmps));
+
+                //         // Specify the upload directory
+                //         $uploadDir = 'prescriptions/';
+
+                //         // Generate a unique filename
+                //         $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+
+                //         // Move the uploaded file to the upload directory
+                //         if(move_uploaded_file($fileTmpPath, $uploadDir . $newFileName)) {
+                //             // Update the database with the prescription file information
+                //             $sqlUpdate = "UPDATE patient SET prescription_file='$newFileName' WHERE pid='$id'";
+                //             $database->query($sqlUpdate);
+                //             echo "Prescription uploaded successfully.";
+                //         } else {
+                //             echo "Error uploading file.";
+                //         }
+                //     } else {
+                //         echo "No file uploaded or an error occurred.";
+                //     }
+                // }
+
+                // Display the patient details popup with the prescription upload form
+                echo '
+                <div id="popup1" class="overlay">
+                        <div class="popup">
+                            <center>
+                                <a class="close" href="patient.php">&times;</a>
+                                <div class="content">
+                                    <div class="form-container">
+                                        <table width="80%" class="sub-table scrolldown add-doc-form-container" border="0">
+                                            <tr>
+                                                <td>
+                                                    <p class="popup-title">View Details.</p><br><br>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-td" colspan="2">
+                                                    <label for="name" class="form-label">Patient ID: </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-td" colspan="2">
+                                                P-'.$id.'<br><br>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-td" colspan="2">
+                                                    <label for="name" class="form-label">Name: </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-td" colspan="2">
+                                                    '.$name.'; <br><br>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-td" colspan="2">
+                                                    <label for="Email" class="form-label">Email: </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-td" colspan="2">
+                                                    '.$email.'<br><br>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-td" colspan="2">
+                                                    <label for="nic" class="form-label">NIC: </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-td" colspan="2">
+                                                   '.$nic.'<br><br>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-td" colspan="2">
+                                                    <label for="Tele" class="form-label">Telephone: </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-td" colspan="2">
+                                                  '.$tele.'<br><br>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-td" colspan="2">
+                                                    <label for="spec" class="form-label">Address: </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-td" colspan="2">
+                                                  '.$address.'<br><br>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-td" colspan="2">
+                                                    <label for="name" class="form-label">Date of Birth: </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label-td" colspan="2">
+                                                    '. $dob.'<br><br>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label for="fileToUpload">Upload Prescription:</label><br>
+                                                    <input type="file"  name="fileToUpload" id="fileToUpload" class="upload-input"><br>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </center>
+                            <br><br>
+                        </div>
+                    </div>
+
+                </div>';
+            }
+
+
+            ?>
 </div>
 
 </body>

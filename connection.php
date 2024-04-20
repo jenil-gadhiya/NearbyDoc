@@ -1,6 +1,6 @@
 <?php
 
-    $database= new mysqli("localhost:3304","root","","edoc");
+    $database= new mysqli("localhost","root","","hacknuthon");
     if ($database->connect_error){
         die("Connection failed:  ".$database->connect_error);
     }
