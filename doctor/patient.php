@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,7 +107,6 @@
                                 </td>
                                 <td style="padding:0px;margin:0px;">
                                     <p class="profile-title"><?php echo substr($username,0,13)  ?>..</p>
-                                    
                                 </td>
                             </tr>
                             <tr>
@@ -118,7 +119,7 @@
                 </tr>
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-dashbord" >
-                        <a href="index.php" class="non-style-link-menu"><div><p class="menu-text">Dashboard</p></a></div></a>
+                        <a href="index.php" class="non-style-link-menu "><div><p class="menu-text">Dashboard</p></a></div></a>
                     </td>
                 </tr>
                 <tr class="menu-row">
@@ -126,20 +127,19 @@
                         <a href="appointment.php" class="non-style-link-menu"><div><p class="menu-text">My Appointments</p></a></div>
                     </td>
                 </tr>
-
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-session">
-                        <a href="add_schedule.php" class="non-style-link-menu"><div><p class="menu-text">Edit Sessions</p></div></a>
-                    </td>
-                </tr>
                 
                 <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-patientmenu-active  menu-icon-patient-active">
-                        <a href="patient.php" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">My Patients</p></a></div>
+                    <td class="menu-btn menu-icon-session">
+                        <a href="schedule.php" class="non-style-link-menu"><div><p class="menu-text">My Sessions</p></div></a>
                     </td>
                 </tr>
                 <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-settings">
+                    <td class="menu-btn menu-icon-patient menu-active menu-icon-patient-active">
+                        <a href="patient.php" class="non-style-link-menu  non-style-link-menu-active"><div><p class="menu-text">My Patients</p></a></div>
+                    </td>
+                </tr>
+                <tr class="menu-row" >
+                    <td class="menu-btn menu-icon-settings   ">
                         <a href="settings.php" class="non-style-link-menu"><div><p class="menu-text">Settings</p></a></div>
                     </td>
                 </tr>
@@ -147,6 +147,7 @@
             </table>
         </div>
         <?php       
+
                     $selecttype="My";
                     $current="My patients Only";
                     if($_POST){
@@ -179,8 +180,7 @@
                 ?>
         <div class="dash-body">
             <table border="0" width="100%" style=" border-spacing: 0;margin:0;padding:0;margin-top:25px; ">
-                <tr >
-                   
+                <tr >   
                     <td>
                         
                         <form action="" method="post" class="header-search">
@@ -242,13 +242,37 @@
                         <table class="filter-container" border="0" >
  
                         <form action="" method="post">
+                        
+                        <td  style="text-align: right;">
+                        Show Details About : &nbsp;
+                        </td>
+                        <td width="30%">
+                        <select name="showonly" id="" class="box filter-container-items" style="width:90% ;height: 37px;margin: 0;" >
+                                    <option value="" disabled selected hidden><?php echo $current   ?></option><br/>
+                                    <option value="my">My Patients Only</option><br/>
+                                    <option value="all">All Patients</option><br/>
+                                    
+
+                        </select>
+                    </td>
+                    <td width="12%">
+                        <input type="submit"  name="filter" value=" Filter" class=" btn-primary-soft btn button-icon btn-filter"  style="padding: 15px; margin :0;width:100%">
+                        </form>
+                    </td>
+
+                    </tr>
+                            </table>
+
+                        </center>
+                    </td>
                     
+                </tr>
                   
                 <tr>
                    <td colspan="4">
                        <center>
                         <div class="abc scroll">
-                        <table width="100%" class="sub-table scrolldown"  style="border-spacing:0;">
+                        <table width="93%" class="sub-table scrolldown"  style="border-spacing:0;">
                         <thead>
                         <tr>
                                 <th class="table-headin">
@@ -336,8 +360,8 @@
                                         <td >
                                         <div style="display:flex;justify-content:center;">
                                         
-                                        <a href="?action=view&id='.$pid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">View</font></button></a>
-                                        <a href="?prescription=view&id='.$pid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="margin-left: 30px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Prescription</font></button></a>
+                                        <a href="?action=view&id='.$pid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">View</font></button></a>
+                                        <a href="?prescription=view&id='.$pid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="margin-left: 30px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Prescription</font></button></a>
                                        
                                         </div>
                                         </td>
