@@ -68,7 +68,7 @@
                                 </td>
                                 <td style="padding:0px;margin:0px;">
                                     <p class="profile-title"><?php echo substr($username,0,13)  ?>..</p>
-                                    <p class="profile-subtitle"><?php echo substr($useremail,0,22)  ?></p>
+                                    
                                 </td>
                             </tr>
                             <tr>
@@ -114,11 +114,9 @@
                         
                         <tr >
                             
-                        <td width="13%" >
-                    <a href="settings.php" ><button  class="login-btn btn-primary-soft btn btn-icon-back"  style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px"><font class="tn-in-text">Back</font></button></a>
-                    </td>
+                      
                     <td>
-                        <p style="font-size: 23px;padding-left:12px;font-weight: 600;">Settings</p>
+                        <p style="font-size: 23px;padding-left:20px;font-weight: 600;">Settings</p>
                                            
                     </td>
                     

@@ -69,7 +69,7 @@
                                 </td>
                                 <td style="padding:0px;margin:0px;">
                                     <p class="profile-title"><?php echo substr($username,0,13)  ?>..</p>
-                                    <p class="profile-subtitle"><?php echo substr($useremail,0,22)  ?></p>
+                                    
                                 </td>
                             </tr>
                             <tr>
@@ -347,12 +347,6 @@
                                         </div>
                                         </center>
 
-
-
-
-
-
-
                                 </td>
                             </tr>
                         </table>
@@ -361,7 +355,6 @@
             </table>
         </div>
     </div>
-
 
 </body>
 </html>
