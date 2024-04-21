@@ -14,7 +14,7 @@
 <?php
 session_start();
 
-$server = "localhost:3304";
+$server = "localhost";
 $username = "root";
 $password = "";
 $database2 = "edoc";
