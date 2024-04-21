@@ -37,25 +37,32 @@ if (isset($_POST['submit'])) {
     $password = $_POST['password'];
     $cpassword = $_POST['cpassword'];
     $address = $_POST['address'];
-    $Specialization = $_POST['Specialization'];
     $Licensenumber = $_POST['Licensenumber'];
     $Qualifications = $_POST['Qualifications'];
     $city = $_POST['city'];
-
-    if ($password == $cpassword) {
-        $res = mysqli_query($connection, "INSERT INTO doctor (`docemail`, `docname`, `docpassword`, `docnic`, `doctel`, `specialties`, `address`, `qualification`, `city`) VALUES ('$email','$name','$password','$Licensenumber','$tele','$Specialization','$address', '$Qualifications', '$city')");
-        if ($res) {
-            $_SESSION["user"] = $email;
-            $_SESSION["usertype"] = "p";
-            $_SESSION["username"] = $name;
-            header('Location: login.php');
-            exit; // Ensure script stops execution after redirection
-        } else {
-            echo '<script>alert("Error inserting data");</script>';
+    $Specialization = $_POST['Specialization'];
+    $Specialization2 = mysqli_query($connection, "select id from specialties where sname = '$Specialization'");
+    $s_id = mysqli_fetch_array($Specialization2);
+        if($s_id){
+            $a = $s_id['id'];
+            if ($password == $cpassword) {
+                $res = mysqli_query($connection, "INSERT INTO doctor (`docemail`, `docname`, `docpassword`, `docnic`, `doctel`, `specialties`, `address`, `qualification`, `city`) VALUES ('$email','$name','$password','$Licensenumber','$tele','$a','$address', '$Qualifications', '$city')");
+                if ($res) {
+                    $_SESSION["user"] = $email;
+                    $_SESSION["usertype"] = "p";
+                    $_SESSION["username"] = $name;
+                    header('Location: doc_login.php');
+                    exit; // Ensure script stops execution after redirection
+                } else {
+                    echo '<script>alert("Error inserting data");</script>';
+                }
+            } else {
+                echo '<script>alert("Passwords do not match");</script>';
+            }
         }
-    } else {
-        echo '<script>alert("Passwords do not match");</script>';
-    }
+        else{
+            
+        }
 }
 ?>
 
@@ -143,7 +150,19 @@ if (isset($_POST['submit'])) {
             <tr>
 
                 <td class="label-td" colspan="2">
-                    <input type="text" name="Specialization" class="input-text" placeholder="Specialization" required>
+                    <select class="form-control"  style="width: 350px; height: 30px; margin-top: 10px;" name="Specialization">
+                    <option>Select Speciality</option>
+                    <option>Cardiology</option>
+                    <option>Allergology</option>
+                    <option>Anaesthetics</option>
+                    <option>Child psychiatry</option>
+                    <option>Dental</option>
+                    <option>Dermatology</option>
+                    <option>Endocrinology</option>
+                    <option>Radiology</option>
+                    <option>Gastroenterology</option>
+                    <option>General surgery</option>
+                    </select>
                 </td>
             </tr>
             <tr>

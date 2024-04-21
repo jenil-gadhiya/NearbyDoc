@@ -44,6 +44,20 @@
     $userid= $userfetch["docid"];
     $username=$userfetch["docname"];
     $sqlmain = "";
+    if(isset($_POST['shedulesubmit'])){
+        $title = $_POST['title'];
+        $nop = $_POST['nop'];
+        $date = $_POST['date'];
+        $time = $_POST['time'];
+
+        $res = mysqli_query($database, "insert into schedule (`docid`, `title`, `scheduledate`, `scheduletime`, `nop`) values('$userid','$title','$date','$time','$nop')");
+        if($res){
+            header('Location: add_schedule.php');
+        }
+        else{
+            echo '<script>alert("Error");</script>';
+        }
+    }
     ?>
     <div class="container">
         <div class="menu">
@@ -119,7 +133,7 @@
                         $today = date('Y-m-d');
                         echo $today;
 
-                        $list110 = $database->query("select  * from  schedule");
+                        $list110 = $database->query("select  * from  schedule where docid = '$userid'");
 
                         ?>
                         </p>
@@ -194,7 +208,7 @@
                         }
                         //echo $sqlpt2;
                         //echo $sqlpt1;
-                        $sqlmain= "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid ";
+                        $sqlmain= "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid where schedule.docid = '$userid' order by schedule.scheduledate desc";
                         $sqllist=array($sqlpt1,$sqlpt2);
                         $sqlkeywords=array(" where "," and ");
                         $key2=0;
@@ -210,7 +224,7 @@
                         
                         //
                     }else{
-                        $sqlmain= "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid where schedule.docid = '$useremail' order by schedule.scheduledate desc";
+                        $sqlmain= "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid where schedule.docid = '$userid' order by schedule.scheduledate desc";
                     }
 
 
@@ -356,7 +370,7 @@
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                <form action="add-session.php" method="POST" class="add-new-form">
+                                <form action="" method="POST" class="add-new-form">
                                     <label for="title" class="form-label">Session Title : </label>
                                 </td>
                             </tr>
@@ -365,33 +379,7 @@
                                     <input type="text" name="title" class="input-text" placeholder="Name of this Session" required><br>
                                 </td>
                             </tr>
-                            <tr>
-                                
-                                <td class="label-td" colspan="2">
-                                    <label for="docid" class="form-label">Select Doctor: </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <select name="docid" id="" class="box" >
-                                    <option value="" disabled selected hidden>Choose Doctor Name from the list</option><br/>';
-                                        
-        
-                                        $list11 = $database->query("select  * from  doctor order by docname asc;");
-        
-                                        for ($y=0;$y<$list11->num_rows;$y++){
-                                            $row00=$list11->fetch_assoc();
-                                            $sn=$row00["docname"];
-                                            $id00=$row00["docid"];
-                                            echo "<option value=".$id00.">$sn</option><br/>";
-                                        };
-        
-        
-        
-                                        
-                        echo     '       </select><br><br>
-                                </td>
-                            </tr>
+                            
                             <tr>
                                 <td class="label-td" colspan="2">
                                     <label for="nop" class="form-label">Number of Patients/Appointment Numbers : </label>

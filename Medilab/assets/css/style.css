@@ -466,16 +466,8 @@ h6 {
   background: url("../img/hero-bg.jpg") top center;
   background-size: cover;
   margin-bottom: -200px;
-  background-blend-mode: darken;
 }
-#hero::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 90vh;
-  background: rgba(0, 0, 0, 0.65);
-  opacity: 0.3;
-}
+
 #hero .container {
   position: relative;
 }
