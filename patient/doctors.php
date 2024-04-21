@@ -112,14 +112,16 @@
                             
                             <?php
                                 echo '<datalist id="doctors">';
-                                $list11 = $database->query("select  docname,docemail from  doctor;");
+                                $list11 = $database->query("select  docname,docemail,city from  doctor;");
 
                                 for ($y=0;$y<$list11->num_rows;$y++){
                                     $row00=$list11->fetch_assoc();
                                     $d=$row00["docname"];
                                     $c=$row00["docemail"];
+                                    $b=$row00["city"];
                                     echo "<option value='$d'><br/>";
                                     echo "<option value='$c'><br/>";
+                                    echo "<option value='$b'><br/>";
                                 };
 
                             echo ' </datalist>';
@@ -162,7 +164,7 @@
                     if($_POST){
                         $keyword=$_POST["search"];
                         
-                        $sqlmain= "select * from doctor where docemail='$keyword' or docname='$keyword' or docname like '$keyword%' or docname like '%$keyword' or docname like '%$keyword%'";
+                        $sqlmain= "select * from doctor where docemail='$keyword' or docname='$keyword' or docname like '$keyword%' or docname like '%$keyword' or docname like '%$keyword%' or city='$keyword' or city like '%$keyword' or city like '$keyword%'";
                     }else{
                         $sqlmain= "select * from doctor order by docid desc";
 
