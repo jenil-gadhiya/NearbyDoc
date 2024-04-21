@@ -130,7 +130,7 @@
                 
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-session">
-                        <a href="schedule.php" class="non-style-link-menu"><div><p class="menu-text">My Sessions</p></div></a>
+                        <a href="add_schedule.php" class="non-style-link-menu"><div><p class="menu-text">My Sessions</p></div></a>
                     </td>
                 </tr>
                 <tr class="menu-row" >

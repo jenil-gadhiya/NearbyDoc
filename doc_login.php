@@ -9,9 +9,6 @@
     <link rel="stylesheet" href="css/login.css">
         
     <title>Login</title>
-
-    
-    
 </head>
 <body>
     <?php
@@ -40,49 +37,22 @@
         
         $error='<label for="promter" class="form-label"></label>';
 
+                //TODO
+                $checker = $database->query("select * from doctor where docemail='$email' and docpassword='$password'");
+                if ($checker->num_rows==1){
+                    //   doctor dashbord
+                    $_SESSION['user']=$email;
+                    $_SESSION['usertype']='d';
+                    header('location: doctor/index.php');
+                }else{
+                    $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
+                }
         
-            if (($email=='admin@edoc.com' && $password='admin123')){
-                //TODO
-                $checker = $database->query("select * from admin where aemail='$email' and apassword='$password'");
-                if ($checker->num_rows==1){
-                    //   Admin dashbord
-                    $_SESSION['user']=$email;
-                    $_SESSION['usertype']='a';
-                    
-                    header('location: admin/index.php');
-
-                }else{
-                    $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
-                }
-                
-            }
-            else{
-                //TODO
-                $checker = $database->query("select * from patient where pemail='$email' and ppassword='$password'");
-                if ($checker->num_rows==1){
-
-
-                    //   Patient dashbord
-                    $_SESSION['user']=$email;
-                    $_SESSION['usertype']='p';
-                    
-                    header('location: patient/index.php');
-
-                }else{
-                    $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
-                }
-            }
-            
         }else{
-            $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">We cant found any acount for this email.</label>';
+            $error='<label for="promter" class="form-label">&nbsp;</label>';
         }
 
     ?>
-
-
-
-
-
     <center>
     <div class="container">
         <table border="0" style="margin: 0;padding: 0;width: 60%;">
@@ -137,7 +107,7 @@
                 <td>
                     <br>
                     <label for="" class="sub-text" style="font-weight: 280;">Don't have an account&#63; </label>
-                    <a href="signup.php" class="hover-link1 non-style-link">Sign Up</a>
+                    <a href="doc_signup.php" class="hover-link1 non-style-link">Sign Up</a>
                     <br><br><br>
                 </td>
             </tr>
