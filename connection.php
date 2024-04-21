@@ -1,8 +1,16 @@
+
+
 <?php
+$host = 'localhost'; 
+$dbname = 'edoc'; 
+$username = 'root'; 
+$password = ''; 
 
-    $database= new mysqli("localhost","root","","hacknuthon");
-    if ($database->connect_error){
-        die("Connection failed:  ".$database->connect_error);
-    }
+$connection =  mysqli_connect($host, $username, $password, $dbname);
 
+if ($connection->connect_error) {
+    die("Connection failed: " . $connection->connect_error);
+}
+
+echo "Connected successfully";
 ?>
